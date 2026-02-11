@@ -10,7 +10,7 @@ public partial class CharacterController : CharacterBody2D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("Jump"))
+        if (@event.IsActionPressed(InputConfig.InputJump) && IsOnFloor())
 		{
 			_isJumping = true;
 		}
@@ -18,7 +18,7 @@ public partial class CharacterController : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        _horizontalMovement = Input.GetAxis("MoveLeft", "MoveRight");
+        _horizontalMovement = Input.GetAxis(InputConfig.InputLeft, InputConfig.InputRight);
     }
 
 
@@ -35,7 +35,7 @@ public partial class CharacterController : CharacterBody2D
 		// Handle Jump.
 		if (_isJumping)
 		{
-			GD.Print("Jump pressed");
+			velocity.Y = JumpVelocity;
 			_isJumping = false;
 		}
 
@@ -43,7 +43,11 @@ public partial class CharacterController : CharacterBody2D
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		if (!Mathf.IsZeroApprox(_horizontalMovement))
 		{
-			GD.Print(_horizontalMovement * Speed);
+			velocity.X = _horizontalMovement * Speed;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 
 		Velocity = velocity;

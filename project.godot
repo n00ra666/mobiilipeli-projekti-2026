@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mobiilipeli-projekti"
-run/main_scene="uid://dnqtn6c7vevoa"
+run/main_scene="uid://d0p2cgj17oeyv"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
