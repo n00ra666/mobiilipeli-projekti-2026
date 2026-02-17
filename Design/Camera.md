@@ -1,0 +1,2 @@
+# Camera
+**Following the player character:** The camera will only move *vertically* to follow the player as they jump up and down between different platforms. Because the game is one endless level with randomly spawning platforms, the player does not move horizontally; rather, the platforms spawn outside of the viewport and move towards the player at a set speed.

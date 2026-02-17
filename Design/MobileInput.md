@@ -1,0 +1,3 @@
+# Mobile Input
+Since my game only has two main controls (*jump* and *dash*), I think the clearest and easiest way to let the player control the character on a mobile device is by dividing the screen in two: tapping on the **left side** makes the character jump, and tapping on the **right side** makes the character dash. These areas can be shown as buttons at the beginning of the game that then fade away so they don't distract the player.
+Alternatively, the character could be controlled by **swiping up to jump** and **swiping right to dash**, but I think using gestures in fast-paced mobile games is always more prone to user errors than having dedicated buttons that recognize a simple tap.
