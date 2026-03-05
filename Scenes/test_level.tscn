@@ -1,27 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0p2cgj17oeyv"]
+[gd_scene load_steps=9 format=3 uid="uid://d0p2cgj17oeyv"]
 
 [ext_resource type="PackedScene" uid="uid://dnqtn6c7vevoa" path="res://Scenes/Player.tscn" id="2_eglq2"]
 [ext_resource type="PackedScene" uid="uid://hjv31828pg5s" path="res://Scenes/platform_long.tscn" id="3_eglq2"]
-[ext_resource type="Script" uid="uid://dwhbh65pnc2jp" path="res://Code/PlatformSpawner.cs" id="4_7w7ni"]
+[ext_resource type="Script" uid="uid://dwhbh65pnc2jp" path="res://Code/Platforms/PlatformSpawner.cs" id="4_7w7ni"]
+[ext_resource type="Script" uid="uid://bsw1g3opdrcna" path="res://Code/Platforms/PlatformController.cs" id="4_btda1"]
+[ext_resource type="PackedScene" uid="uid://3ytkak4qnhim" path="res://Scenes/platform_medium.tscn" id="4_xq3o0"]
+[ext_resource type="PackedScene" uid="uid://cakeiojca55sx" path="res://Scenes/platform_short.tscn" id="5_2yvf5"]
+[ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="5_xq3o0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yvf5"]
+size = Vector2(1921, 32)
 
 [node name="TestLevel" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_eglq2")]
 position = Vector2(124, 180)
 
-[node name="Platform_long" parent="." instance=ExtResource("3_eglq2")]
-position = Vector2(126, 416)
-_scrollSpeed = 0.0
-
-[node name="PlatformSpawner" type="Node2D" parent="."]
+[node name="PlatformSpawnerMiddle" type="Node2D" parent="." node_paths=PackedStringArray("_timer")]
 script = ExtResource("4_7w7ni")
-_platformScene = ExtResource("3_eglq2")
-_spawnCoordinate = Vector2(1300, 0)
-_spawnCoordsYMin = -50.0
-_spawnCoordsYMax = -550.0
+Platforms = Array[PackedScene]([ExtResource("3_eglq2"), ExtResource("4_xq3o0"), ExtResource("5_2yvf5")])
+_spawnCoordinate = Vector2(1200, 0)
+_spawnCoordsYMin = -300.0
+_spawnCoordsYMax = -350.0
+_timer = NodePath("Timer")
 
-[node name="Timer" type="Timer" parent="PlatformSpawner"]
+[node name="Timer" type="Timer" parent="PlatformSpawnerMiddle"]
 wait_time = 3.0
 autostart = true
 
-[connection signal="timeout" from="PlatformSpawner/Timer" to="PlatformSpawner" method="OnTimerTimeout"]
+[node name="StartPlatform" type="StaticBody2D" parent="."]
+position = Vector2(445, 554)
+collision_layer = 2
+script = ExtResource("4_btda1")
+_scrollSpeed = -200.0
+_offScreenEndCoordinate = -1300.0
+
+[node name="Sprite2D" type="Sprite2D" parent="StartPlatform"]
+position = Vector2(514, 56)
+scale = Vector2(15, 0.25)
+texture = ExtResource("5_xq3o0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlatform"]
+position = Vector2(514.5, 56)
+shape = SubResource("RectangleShape2D_2yvf5")
+
+[connection signal="timeout" from="PlatformSpawnerMiddle/Timer" to="PlatformSpawnerMiddle" method="OnTimerTimeout"]
