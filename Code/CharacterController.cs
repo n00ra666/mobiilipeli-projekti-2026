@@ -4,13 +4,14 @@ using System;
 public partial class CharacterController : CharacterBody2D
 {
 	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public const float JumpVelocity = -850.0f;
 	private float _horizontalMovement = 0;
 	private bool _isJumping = false;
+	private int _extraJumpsLeft = 1;
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed(InputConfig.InputJump) && IsOnFloor())
+        if (@event.IsActionPressed(InputConfig.InputJump) && _extraJumpsLeft > 0)
 		{
 			_isJumping = true;
 		}
@@ -18,7 +19,7 @@ public partial class CharacterController : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        _horizontalMovement = Input.GetAxis(InputConfig.InputLeft, InputConfig.InputRight);
+        //_horizontalMovement = Input.GetAxis(InputConfig.InputLeft, InputConfig.InputRight);
     }
 
 
@@ -36,7 +37,16 @@ public partial class CharacterController : CharacterBody2D
 		if (_isJumping)
 		{
 			velocity.Y = JumpVelocity;
-			_isJumping = false;
+			_extraJumpsLeft--;
+			if (_extraJumpsLeft < 1)
+			{
+				_isJumping = false;
+			}
+		}
+
+		if (IsOnFloor())
+		{
+			_extraJumpsLeft = 1;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
