@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0p2cgj17oeyv"]
+[gd_scene load_steps=10 format=3 uid="uid://d0p2cgj17oeyv"]
 
 [ext_resource type="PackedScene" uid="uid://dnqtn6c7vevoa" path="res://Scenes/Player.tscn" id="2_eglq2"]
 [ext_resource type="PackedScene" uid="uid://hjv31828pg5s" path="res://Scenes/platform_long.tscn" id="3_eglq2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://3ytkak4qnhim" path="res://Scenes/platform_medium.tscn" id="4_xq3o0"]
 [ext_resource type="PackedScene" uid="uid://cakeiojca55sx" path="res://Scenes/platform_short.tscn" id="5_2yvf5"]
 [ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="5_xq3o0"]
+[ext_resource type="Script" uid="uid://bbendxsfek7r5" path="res://Code/UI/HUD.cs" id="8_2yvf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2yvf5"]
 size = Vector2(1921, 32)
@@ -43,5 +44,45 @@ texture = ExtResource("5_xq3o0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlatform"]
 position = Vector2(514.5, 56)
 shape = SubResource("RectangleShape2D_2yvf5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_gameOverPanel", "_restartButton")]
+script = ExtResource("8_2yvf5")
+_livesLabel = NodePath("LivesLabel")
+_gameOverPanel = NodePath("GameOverPanel")
+_restartButton = NodePath("GameOverPanel/VBoxContainer/RestartButton")
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer"]
+offset_right = 50.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "LIVES: "
+
+[node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -29.0
+offset_right = 105.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+text = "Game over!"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "RESTART"
 
 [connection signal="timeout" from="PlatformSpawnerMiddle/Timer" to="PlatformSpawnerMiddle" method="OnTimerTimeout"]

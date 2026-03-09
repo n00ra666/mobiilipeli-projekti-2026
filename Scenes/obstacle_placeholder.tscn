@@ -10,8 +10,10 @@ size = Vector2(128, 128)
 script = ExtResource("1_f0syw")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 3
+monitoring = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 texture = ExtResource("1_5wbx4")

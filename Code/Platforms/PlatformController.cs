@@ -10,14 +10,16 @@ public partial class PlatformController : StaticBody2D
     public override void _Ready()
     {
         _platformSpeedManager = GetNode<PlatformSpeedManager>("/root/PlatformSpeedManager");
-		if (_platformSpeedManager == null)
-		{
-			GD.Print("PlatformSpeedManager is null");
-		}
     }
 
     public override void _Process(double delta)
 	{
+		if (GameManager.Instance.IsScrolling == false)
+		{
+			StopMovement();
+			return;
+		}
+		
 		_scrollSpeed = _platformSpeedManager.CurrentSpeed;
 		var position = Position;
 		position.X += (float)delta * _scrollSpeed;

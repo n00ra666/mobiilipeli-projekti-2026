@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlatformSpeedManager="*res://Code/Platforms/PlatformSpeedManager.cs"
+GameManager="*res://Code/GameManager.cs"
 
 [display]
 

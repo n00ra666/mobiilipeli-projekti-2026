@@ -12,15 +12,24 @@ public partial class PlatformSpawner : Node2D
 	[Export] private float _shortPlatformWaitTime = 1.5f;
 	[Export] private Timer _timer;
 	private RandomNumberGenerator _rng;
+	private ObstacleSpawner _obstacleSpawner;
 	private bool _isSpawning = true;
 	private int _previousPlatformIndex;
-	
 
     public override void _Ready()
     {
         _rng = new RandomNumberGenerator();
 		//_timer.WaitTime = _rng.RandfRange(2.0f, 4.0f);
     }
+
+    public override void _Process(double delta)
+    {
+        if (GameManager.Instance.IsScrolling == false && _isSpawning == true)
+		{
+			StopSpawning();
+		}
+    }
+
 
 	public void OnTimerTimeout()
 	{
@@ -34,6 +43,8 @@ public partial class PlatformSpawner : Node2D
 		var platform = (StaticBody2D)Platforms[randomPlatform].Instantiate();
 		platform.GlobalPosition = _spawnCoordinate + Vector2.Up * _rng.RandfRange(_spawnCoordsYMin, _spawnCoordsYMax);
 		GetTree().Root.GetNode("TestLevel").AddChild(platform);
+
+		_obstacleSpawner = platform.GetNode<ObstacleSpawner>("ObstaclePlaceholder");
 
 		if (_previousPlatformIndex == 0)
 		{
