@@ -4,6 +4,7 @@ using System;
 public partial class HUD : CanvasLayer
 {
 	[Export] private Label _livesLabel;
+    [Export] private Label _scoreLabel;
 	[Export] private PanelContainer _gameOverPanel;
 	[Export] private Button _restartButton;
 
@@ -15,6 +16,7 @@ public partial class HUD : CanvasLayer
     public override void _Process(double delta)
     {
         _livesLabel.Text = $"LIVES: {GameManager.Instance.Lives.ToString()}";
+        _scoreLabel.Text = $"SCORE: {ScoreManager.Instance.Score.ToString()}";
 
 		if (GameManager.Instance.IsGameOver)
 		{
@@ -25,6 +27,7 @@ public partial class HUD : CanvasLayer
 	private void OnRestartPressed()
 	{
 		_gameOverPanel.Visible = false;
+        ScoreManager.Instance.Reset();
 		GameManager.Instance.RestartGame();
 	}
 

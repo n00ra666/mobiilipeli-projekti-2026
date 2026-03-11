@@ -3,11 +3,21 @@ using System;
 
 public partial class CharacterController : CharacterBody2D
 {
+	[Signal] public delegate void DashStartedEventHandler();
+	[Signal] public delegate void DashEndedEventHandler();
+	[Export] private Timer _dashTimer;
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -850.0f;
 	private float _horizontalMovement = 0;
 	private bool _isJumping = false;
+	private bool _isDashing = false;
+	private bool _timerStarted = false;
 	private int _extraJumpsLeft = 1;
+
+	public bool IsDashing
+	{
+		get => _isDashing;
+	}
 
     public override void _Input(InputEvent @event)
     {
@@ -15,7 +25,19 @@ public partial class CharacterController : CharacterBody2D
 		{
 			_isJumping = true;
 		}
+
+		if (@event.IsActionPressed(InputConfig.InputDash) && _isDashing == false)
+		{
+			_isDashing = true;
+		}
 	}
+
+    public override void _Ready()
+    {
+        DashStarted += GameManager.Instance.OnDashStarted;
+		DashEnded += GameManager.Instance.OnDashEnded;
+    }
+
 
     public override void _Process(double delta)
     {
@@ -44,6 +66,16 @@ public partial class CharacterController : CharacterBody2D
 			}
 		}
 
+		if (_isDashing)
+		{
+			if (!_timerStarted)
+			{
+				_timerStarted = true;
+				EmitSignal(SignalName.DashStarted);
+				_dashTimer.Start();
+			}
+		}
+
 		if (IsOnFloor())
 		{
 			_extraJumpsLeft = 1;
@@ -62,5 +94,13 @@ public partial class CharacterController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void OnTimerTimeout()
+	{
+		_dashTimer.Stop();
+		EmitSignal(SignalName.DashEnded);
+		_isDashing = false;
+		_timerStarted = false;
 	}
 }

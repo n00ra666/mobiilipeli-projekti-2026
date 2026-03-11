@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0p2cgj17oeyv"]
+[gd_scene load_steps=11 format=3 uid="uid://d0p2cgj17oeyv"]
 
 [ext_resource type="PackedScene" uid="uid://dnqtn6c7vevoa" path="res://Scenes/Player.tscn" id="2_eglq2"]
 [ext_resource type="PackedScene" uid="uid://hjv31828pg5s" path="res://Scenes/platform_long.tscn" id="3_eglq2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cakeiojca55sx" path="res://Scenes/platform_short.tscn" id="5_2yvf5"]
 [ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="5_xq3o0"]
 [ext_resource type="Script" uid="uid://bbendxsfek7r5" path="res://Code/UI/HUD.cs" id="8_2yvf5"]
+[ext_resource type="Script" uid="uid://ehglt38db4nr" path="res://Code/ScoreManager.cs" id="9_3ihge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2yvf5"]
 size = Vector2(1921, 32)
@@ -45,17 +46,29 @@ texture = ExtResource("5_xq3o0")
 position = Vector2(514.5, 56)
 shape = SubResource("RectangleShape2D_2yvf5")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_gameOverPanel", "_restartButton")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_scoreLabel", "_gameOverPanel", "_restartButton", "_scoreManager")]
 script = ExtResource("8_2yvf5")
 _livesLabel = NodePath("LivesLabel")
+_scoreLabel = NodePath("ScoreLabel")
 _gameOverPanel = NodePath("GameOverPanel")
 _restartButton = NodePath("GameOverPanel/VBoxContainer/RestartButton")
+_scoreManager = NodePath("../ScoreManager")
 
 [node name="LivesLabel" type="Label" parent="CanvasLayer"]
 offset_right = 50.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 32
 text = "LIVES: "
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -118.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "SCORE: "
 
 [node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
 visible = false
@@ -84,5 +97,8 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 text = "RESTART"
+
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource("9_3ihge")
 
 [connection signal="timeout" from="PlatformSpawnerMiddle/Timer" to="PlatformSpawnerMiddle" method="OnTimerTimeout"]

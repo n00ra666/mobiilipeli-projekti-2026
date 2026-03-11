@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 public partial class GameManager : Node
 {
 	#region Singleton
+	
 	public static GameManager Instance
 	{
 		get;
@@ -26,6 +27,9 @@ public partial class GameManager : Node
 
 	#endregion
 	private bool _isScrolling = true;
+	private float _currentSpeed = -400f;
+	private float _baseSpeed = -400f;
+	private float _dashMultiplier = 1.5f;
 	private int _lives = 2;
 	private bool _isGameOver = false;
 
@@ -38,6 +42,14 @@ public partial class GameManager : Node
 		}
 	}
 
+	public float CurrentSpeed
+	{
+		get => _currentSpeed;
+		set
+		{
+			_currentSpeed = value;
+		}
+	}
 	public int Lives
 	{
 		get => _lives;
@@ -80,5 +92,15 @@ public partial class GameManager : Node
 		_isScrolling = true;
 		_isGameOver = false;
 		GetTree().ReloadCurrentScene();
+	}
+
+	public void OnDashStarted()
+	{
+		_currentSpeed = _baseSpeed * _dashMultiplier;
+	}
+
+	public void OnDashEnded()
+	{
+		_currentSpeed = _baseSpeed;
 	}
 }

@@ -7,6 +7,7 @@ public partial class ObstacleSpawner : Node2D
 	private RandomNumberGenerator _rng;
 	private Area2D _area;
 	private bool _previousPlatformSpawnedObstacle = false;
+	private int _value = 1000;
 	public override void _Ready()
     {
 		_area = GetNode<Area2D>("Area2D");
@@ -35,10 +36,18 @@ public partial class ObstacleSpawner : Node2D
 
 	private void OnArea2DBodyEntered(Node body)
 	{
-		if (body is CharacterController)
+		if (body is CharacterController characterController)
 		{
-			GameManager.Instance.SubtractLife();
-			body.QueueFree();
+			if (characterController.IsDashing)
+			{
+				ScoreManager.Instance.AddScore(_value);
+				QueueFree();
+			}
+			else
+			{
+				GameManager.Instance.SubtractLife();
+				body.QueueFree();
+			}
 		}
 	}
 

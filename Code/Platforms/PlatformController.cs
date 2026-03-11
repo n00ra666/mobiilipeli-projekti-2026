@@ -5,12 +5,6 @@ public partial class PlatformController : StaticBody2D
 {
 	[Export] private float _scrollSpeed = -50.0f;
 	[Export] private float _offScreenEndCoordinate = -500f;
-	private PlatformSpeedManager _platformSpeedManager;
-
-    public override void _Ready()
-    {
-        _platformSpeedManager = GetNode<PlatformSpeedManager>("/root/PlatformSpeedManager");
-    }
 
     public override void _Process(double delta)
 	{
@@ -20,7 +14,7 @@ public partial class PlatformController : StaticBody2D
 			return;
 		}
 		
-		_scrollSpeed = _platformSpeedManager.CurrentSpeed;
+		_scrollSpeed = GameManager.Instance.CurrentSpeed;
 		var position = Position;
 		position.X += (float)delta * _scrollSpeed;
 
