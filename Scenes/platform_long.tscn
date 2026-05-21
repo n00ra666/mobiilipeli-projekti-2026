@@ -1,24 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://hjv31828pg5s"]
+[gd_scene load_steps=11 format=3 uid="uid://hjv31828pg5s"]
 
-[ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="1_2m8hc"]
 [ext_resource type="Script" uid="uid://bsw1g3opdrcna" path="res://Code/Platforms/PlatformController.cs" id="1_8q6su"]
-[ext_resource type="PackedScene" uid="uid://bbssxvn3xcsx1" path="res://Scenes/obstacle_placeholder.tscn" id="3_p8t4t"]
+[ext_resource type="Texture2D" uid="uid://dmcdgvvvg3uuv" path="res://Art/platform_long.png" id="2_bv7dl"]
+[ext_resource type="PackedScene" uid="uid://c2lukf3xjwpxr" path="res://Scenes/obstacle_spawner.tscn" id="3_krdp5"]
+[ext_resource type="Script" uid="uid://bcibledlj5j5b" path="res://Code/Obstacles/DeathZone.cs" id="4_he7e1"]
+[ext_resource type="Script" uid="uid://bykcpho7vmqi5" path="res://Code/Obstacles/EnemySpawner.cs" id="5_bv7dl"]
+[ext_resource type="Script" uid="uid://desqi52ta8mo5" path="res://Code/Obstacles/PathFollower.cs" id="5_krdp5"]
+[ext_resource type="PackedScene" uid="uid://derwi5b0nuf7i" path="res://Scenes/enemy_placeholder.tscn" id="6_bv7dl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2m8hc"]
-size = Vector2(1280, 32)
+size = Vector2(1070, 32)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_isrde"]
+a = Vector2(0, -16)
+b = Vector2(0, 14)
+
+[sub_resource type="Curve2D" id="Curve2D_kqo3i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -400, -80, 0, 0, 0, 0, 400, -80)
+}
+point_count = 2
 
 [node name="Platform_long" type="StaticBody2D"]
 collision_layer = 2
 script = ExtResource("1_8q6su")
-_scrollSpeed = -200.0
 _offScreenEndCoordinate = -1300.0
+Width = 1080.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(10, 0.25)
-texture = ExtResource("1_2m8hc")
+position = Vector2(0, 43)
+texture = ExtResource("2_bv7dl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2m8hc")
 
-[node name="ObstaclePlaceholder" parent="." instance=ExtResource("3_p8t4t")]
+[node name="ObstacleSpawner" parent="." node_paths=PackedStringArray("_platform") instance=ExtResource("3_krdp5")]
 position = Vector2(0, -80)
+_platform = NodePath("..")
+
+[node name="DeathZone" type="Node2D" parent="."]
+script = ExtResource("4_he7e1")
+
+[node name="Area2D" type="Area2D" parent="DeathZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone/Area2D"]
+position = Vector2(-536, 8)
+shape = SubResource("SegmentShape2D_isrde")
+
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("_enemy", "_scoreArea")]
+script = ExtResource("5_bv7dl")
+_enemy = NodePath("Path2D/PathFollow2D/EnemyPlaceholder")
+_scoreArea = NodePath("Path2D/PathFollow2D/EnemyPlaceholder/ScoreArea")
+
+[node name="Path2D" type="Path2D" parent="EnemySpawner"]
+curve = SubResource("Curve2D_kqo3i")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawner/Path2D"]
+position = Vector2(-400, -80)
+script = ExtResource("5_krdp5")
+_speed = 150.0
+
+[node name="EnemyPlaceholder" parent="EnemySpawner/Path2D/PathFollow2D" instance=ExtResource("6_bv7dl")]
+
+[connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="OnArea2DBodyEntered"]
+
+[editable path="EnemySpawner/Path2D/PathFollow2D/EnemyPlaceholder"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2lukf3xjwpxr"]
+
+[ext_resource type="Script" uid="uid://hj0otow515xg" path="res://Code/Obstacles/ObstacleSpawner.cs" id="1_yc3e8"]
+[ext_resource type="Script" uid="uid://3hgukjok63x6" path="res://Code/Obstacles/Obstacle.cs" id="2_mq1l0"]
+[ext_resource type="Texture2D" uid="uid://sq541ryffx74" path="res://Art/obstacle2.png" id="3_mq1l0"]
+[ext_resource type="AudioStream" uid="uid://c8hwlk2u08exm" path="res://Audio/Effects/518888__ash_rez__1up-video-game.wav" id="4_mq1l0"]
+[ext_resource type="AudioStream" uid="uid://d7echb8qm2mg" path="res://Audio/Effects/757612__qubodup__pop-sound.wav" id="5_gfwja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0syw"]
+size = Vector2(128, 128)
+
+[node name="ObstacleSpawner" type="Node2D"]
+script = ExtResource("1_yc3e8")
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("_scoreAudio", "_bubbleAudio", "_sprite")]
+visible = false
+collision_layer = 8
+collision_mask = 3
+monitoring = false
+script = ExtResource("2_mq1l0")
+_scoreAudio = NodePath("ScoreAudio")
+_bubbleAudio = NodePath("BubbleAudio")
+_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+z_index = -1
+texture = ExtResource("3_mq1l0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_f0syw")
+
+[node name="ScoreAudio" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("4_mq1l0")
+bus = &"Effects"
+
+[node name="BubbleAudio" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("5_gfwja")
+bus = &"Effects"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="OnArea2DBodyEntered"]

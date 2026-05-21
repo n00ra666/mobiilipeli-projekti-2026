@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://derwi5b0nuf7i"]
+
+[ext_resource type="Script" uid="uid://dqc8ngm63y47s" path="res://Code/Obstacles/Enemy.cs" id="1_17wxa"]
+[ext_resource type="Texture2D" uid="uid://bme6vqg33olgt" path="res://Art/enemy_spritesheet.png" id="2_nm0se"]
+[ext_resource type="Script" uid="uid://c5pwfbt3c02d2" path="res://Code/Obstacles/EnemyScore.cs" id="3_nm0se"]
+[ext_resource type="AudioStream" uid="uid://c8hwlk2u08exm" path="res://Audio/Effects/518888__ash_rez__1up-video-game.wav" id="4_skq3i"]
+[ext_resource type="AudioStream" uid="uid://d7echb8qm2mg" path="res://Audio/Effects/757612__qubodup__pop-sound.wav" id="5_2t4yw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm0se"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(0, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skq3i"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(160, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t4yw"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(320, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfrdw"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(480, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oa00"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(0, 128, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkhju"]
+atlas = ExtResource("2_nm0se")
+region = Rect2(160, 128, 160, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rm1hj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nm0se")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skq3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t4yw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfrdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oa00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkhju")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_asiud"]
+radius = 51.0
+height = 124.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skq3i"]
+radius = 31.0
+height = 280.0
+
+[node name="EnemyPlaceholder" type="Area2D" node_paths=PackedStringArray("_sprite")]
+visible = false
+monitoring = false
+script = ExtResource("1_17wxa")
+_sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rm1hj")
+frame_progress = 0.98328155
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_asiud")
+
+[node name="ScoreArea" type="Area2D" parent="." node_paths=PackedStringArray("_enemy", "_scoreAudio", "_bubbleAudio")]
+visible = false
+monitoring = false
+script = ExtResource("3_nm0se")
+_enemy = NodePath("..")
+_scoreAudio = NodePath("ScoreAudio")
+_bubbleAudio = NodePath("BubbleAudio")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(0, -208)
+shape = SubResource("CapsuleShape2D_skq3i")
+
+[node name="ScoreAudio" type="AudioStreamPlayer2D" parent="ScoreArea"]
+stream = ExtResource("4_skq3i")
+bus = &"Effects"
+
+[node name="BubbleAudio" type="AudioStreamPlayer2D" parent="ScoreArea"]
+stream = ExtResource("5_2t4yw")
+bus = &"Effects"
+
+[connection signal="body_entered" from="." to="." method="OnArea2DBodyEntered"]
+[connection signal="body_entered" from="ScoreArea" to="ScoreArea" method="OnArea2DBodyEntered"]

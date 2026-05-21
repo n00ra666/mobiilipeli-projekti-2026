@@ -1,22 +1,260 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnqtn6c7vevoa"]
+[gd_scene load_steps=32 format=3 uid="uid://dnqtn6c7vevoa"]
 
 [ext_resource type="Script" uid="uid://nb600ddqtdxw" path="res://Code/CharacterController.cs" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://cjmnvgp5tnntl" path="res://Art/bubble.png" id="2_dewec"]
+[ext_resource type="Texture2D" uid="uid://6hk65ty86dn0" path="res://Art/dash.png" id="3_dewec"]
+[ext_resource type="Texture2D" uid="uid://c84yinrwvsx73" path="res://Art/run1.png" id="3_gntrk"]
+[ext_resource type="Texture2D" uid="uid://dfh2fgto0dqcj" path="res://Art/player_death.png" id="4_nn08x"]
+[ext_resource type="Texture2D" uid="uid://cqqra0qjn1fq" path="res://Art/particle.png" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://bijxw8x7hv5kk" path="res://Code/ScorePopup.cs" id="7_bhhdu"]
+[ext_resource type="FontFile" uid="uid://c7vjh7waum3x5" path="res://Fonts/Kejter-BLwJ5.otf" id="8_megsn"]
+[ext_resource type="AudioStream" uid="uid://15g6g63xt34x" path="res://Audio/Effects/530448__mellau__whoosh-short-5.wav" id="9_megsn"]
+[ext_resource type="AudioStream" uid="uid://dklmp8xkaqywi" path="res://Audio/Effects/the-sound-of-lost-profits.mp3" id="10_yoq75"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
-size = Vector2(128, 128)
+size = Vector2(69, 125)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dashTimer")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoq75"]
+atlas = ExtResource("3_dewec")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbbd"]
+atlas = ExtResource("3_dewec")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
+atlas = ExtResource("3_dewec")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
+atlas = ExtResource("3_dewec")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3h8g"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e7my"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arntx"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lslt6"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulo2v"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iu4k"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0x7a"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v66d"]
+atlas = ExtResource("4_nn08x")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yoq75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoq75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miouo")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3h8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e7my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arntx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lslt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulo2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iu4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0x7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v66d")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dewec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ixxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ee3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhhdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_megsn")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nn08x"]
+lifetime_randomness = 0.24
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0.86, 1.175, 1)
+emission_shape = 1
+emission_sphere_radius = 43.66
+angle_min = -282.69998
+angle_max = 328.80002
+gravity = Vector3(-150, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+damping_min = 100.00001
+damping_max = 100.00001
+scale_min = 0.099999994
+scale_max = 0.79999995
+scale_over_velocity_max = 20.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dashTimer", "_sprite", "_bubbleSprite", "_dashAudio", "_deathAudio")]
 collision_mask = 14
 script = ExtResource("1_kyqiw")
 _dashTimer = NodePath("DashTimer")
+_sprite = NodePath("AnimatedSprite2D")
+_bubbleSprite = NodePath("Sprite2D")
+_dashAudio = NodePath("DashAudio")
+_deathAudio = NodePath("DeathAudio")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_rpqav")
+visible = false
+z_index = 1
+texture = ExtResource("2_dewec")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_kyqiw")
 
 [node name="DashTimer" type="Timer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yoq75")
+animation = &"run"
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-45, 2)
+texture = ExtResource("5_5ixxa")
+lifetime = 2.0
+speed_scale = 2.0
+explosiveness = 0.09
+randomness = 0.54
+process_material = SubResource("ParticleProcessMaterial_nn08x")
+
+[node name="ScorePopup" type="Label" parent="."]
+visible = false
+offset_left = -27.0
+offset_top = -90.0
+offset_right = 32.0
+offset_bottom = -58.0
+theme_override_fonts/font = ExtResource("8_megsn")
+theme_override_font_sizes/font_size = 32
+text = "+5000"
+script = ExtResource("7_bhhdu")
+
+[node name="DashAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_megsn")
+bus = &"Effects"
+
+[node name="DeathAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_yoq75")
+bus = &"Effects"
 
 [connection signal="timeout" from="DashTimer" to="." method="OnTimerTimeout"]

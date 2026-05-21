@@ -3,8 +3,19 @@ using System;
 
 public partial class PlatformController : StaticBody2D
 {
-	[Export] private float _scrollSpeed = -50.0f;
 	[Export] private float _offScreenEndCoordinate = -500f;
+	[Export] public float Width;
+	private int _whichSpawner;
+	private float _scrollSpeed;
+
+	public int WhichSpawner
+	{
+		get => _whichSpawner;
+		set
+		{
+			_whichSpawner = value;
+		}
+	}
 
     public override void _Process(double delta)
 	{
@@ -30,10 +41,4 @@ public partial class PlatformController : StaticBody2D
 	{
 		_scrollSpeed = 0f;
 	}
-
-	public void OnArea2DAreaEntered(Area2D area)
-	{
-		GD.Print("Area entered");
-	}
-
 }

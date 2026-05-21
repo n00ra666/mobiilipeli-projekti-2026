@@ -10,16 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Mobiilipeli-projekti"
-run/main_scene="uid://d0p2cgj17oeyv"
+config/name="Heavenward"
+run/main_scene="uid://bfg4meonibwja"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PlatformSpeedManager="*res://Code/Platforms/PlatformSpeedManager.cs"
-GameManager="*res://Code/GameManager.cs"
 ScoreManager="*res://Code/ScoreManager.cs"
+GameManager="*res://Scenes/game_manager.tscn"
+SaveData="*res://Code/SaveData.cs"
 
 [display]
 
@@ -44,12 +45,20 @@ Dash={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [layer_names]
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Platform"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Obstacle"
+
+[physics]
+
+2d/default_gravity=1500.0
 
 [rendering]
 

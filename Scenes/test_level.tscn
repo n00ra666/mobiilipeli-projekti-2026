@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0p2cgj17oeyv"]
+[gd_scene load_steps=25 format=3 uid="uid://d0p2cgj17oeyv"]
 
 [ext_resource type="PackedScene" uid="uid://dnqtn6c7vevoa" path="res://Scenes/Player.tscn" id="2_eglq2"]
 [ext_resource type="PackedScene" uid="uid://hjv31828pg5s" path="res://Scenes/platform_long.tscn" id="3_eglq2"]
@@ -6,69 +6,178 @@
 [ext_resource type="Script" uid="uid://bsw1g3opdrcna" path="res://Code/Platforms/PlatformController.cs" id="4_btda1"]
 [ext_resource type="PackedScene" uid="uid://3ytkak4qnhim" path="res://Scenes/platform_medium.tscn" id="4_xq3o0"]
 [ext_resource type="PackedScene" uid="uid://cakeiojca55sx" path="res://Scenes/platform_short.tscn" id="5_2yvf5"]
-[ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="5_xq3o0"]
+[ext_resource type="Texture2D" uid="uid://ca65sj21xq2u0" path="res://Art/startplatform.png" id="7_akkqd"]
 [ext_resource type="Script" uid="uid://bbendxsfek7r5" path="res://Code/UI/HUD.cs" id="8_2yvf5"]
+[ext_resource type="FontFile" uid="uid://c7vjh7waum3x5" path="res://Fonts/Kejter-BLwJ5.otf" id="9_1rqgg"]
 [ext_resource type="Script" uid="uid://ehglt38db4nr" path="res://Code/ScoreManager.cs" id="9_3ihge"]
+[ext_resource type="Script" uid="uid://bcibledlj5j5b" path="res://Code/Obstacles/DeathZone.cs" id="10_akkqd"]
+[ext_resource type="Script" uid="uid://t0reg4y37ihy" path="res://Code/Parallax2d.cs" id="12_mwmob"]
+[ext_resource type="Script" uid="uid://crlmoblyqt34r" path="res://Code/FollowCamera.cs" id="14_so54a"]
+[ext_resource type="Texture2D" uid="uid://bn0d1kw3denpi" path="res://Art/bg_mountains.png" id="14_sw8nc"]
+[ext_resource type="Texture2D" uid="uid://doysq348o022w" path="res://Art/bg_sky.png" id="15_x6ft1"]
+[ext_resource type="AudioStream" uid="uid://sd681ra8qvrn" path="res://Audio/Music/Week 2 - Ruined Lands WASTELAND.ogg" id="16_x6ft1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2yvf5"]
-size = Vector2(1921, 32)
+size = Vector2(2094, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ft1"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p51s7"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7alf0"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_260qw"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbmvr"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwmob"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8v7by"]
+distance = -716.0
 
 [node name="TestLevel" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("_target")]
+limit_left = 0
+limit_top = -700
+limit_right = 1200
+limit_bottom = 900
+script = ExtResource("14_so54a")
+_target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_eglq2")]
 position = Vector2(124, 180)
 
-[node name="PlatformSpawnerMiddle" type="Node2D" parent="." node_paths=PackedStringArray("_timer")]
+[node name="PlatformSpawnerTop" type="Node2D" parent="."]
 script = ExtResource("4_7w7ni")
 Platforms = Array[PackedScene]([ExtResource("3_eglq2"), ExtResource("4_xq3o0"), ExtResource("5_2yvf5")])
 _spawnCoordinate = Vector2(1200, 0)
-_spawnCoordsYMin = -300.0
-_spawnCoordsYMax = -350.0
-_timer = NodePath("Timer")
+_spawnCoordsYMax = -250.0
+_minGap = 250.0
+_maxGap = 350.0
 
-[node name="Timer" type="Timer" parent="PlatformSpawnerMiddle"]
-wait_time = 3.0
-autostart = true
+[node name="PlatformSpawnerMiddle" type="Node2D" parent="."]
+script = ExtResource("4_7w7ni")
+Platforms = Array[PackedScene]([ExtResource("3_eglq2"), ExtResource("4_xq3o0"), ExtResource("5_2yvf5")])
+_spawnCoordinate = Vector2(1200, 0)
+_spawnCoordsYMin = 250.0
+_spawnCoordsYMax = 600.0
+_minGap = 250.0
+_maxGap = 350.0
+_whichSpawner = 1
 
 [node name="StartPlatform" type="StaticBody2D" parent="."]
-position = Vector2(445, 554)
+position = Vector2(1050, 597)
 collision_layer = 2
 script = ExtResource("4_btda1")
-_scrollSpeed = -200.0
 _offScreenEndCoordinate = -1300.0
+Width = 2104.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StartPlatform"]
-position = Vector2(514, 56)
-scale = Vector2(15, 0.25)
-texture = ExtResource("5_xq3o0")
+texture = ExtResource("7_akkqd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlatform"]
-position = Vector2(514.5, 56)
+position = Vector2(-1, -41)
 shape = SubResource("RectangleShape2D_2yvf5")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_scoreLabel", "_gameOverPanel", "_restartButton", "_scoreManager")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("_livesLabel", "_scoreLabel", "_highScoreLabel", "_moneyLabel", "_gameOverPanel", "_restartButton", "_mainMenuButton", "_jumpButton", "_dashButton")]
 script = ExtResource("8_2yvf5")
-_livesLabel = NodePath("LivesLabel")
-_scoreLabel = NodePath("ScoreLabel")
+_livesLabel = NodePath("MarginContainer2/HBoxContainer/LivesLabel")
+_scoreLabel = NodePath("MarginContainer2/HBoxContainer/ScoreLabel")
+_highScoreLabel = NodePath("GameOverPanel/MarginContainer/VBoxContainer/HighScoreLabel")
+_moneyLabel = NodePath("GameOverPanel/MarginContainer/VBoxContainer/MoneyLabel")
 _gameOverPanel = NodePath("GameOverPanel")
-_restartButton = NodePath("GameOverPanel/VBoxContainer/RestartButton")
-_scoreManager = NodePath("../ScoreManager")
+_restartButton = NodePath("GameOverPanel/MarginContainer/VBoxContainer/RestartButton")
+_mainMenuButton = NodePath("GameOverPanel/MarginContainer/VBoxContainer/MainMenuButton")
+_jumpButton = NodePath("MarginContainer/HBoxContainer/JumpButton")
+_dashButton = NodePath("MarginContainer/HBoxContainer/DashButton")
 
-[node name="LivesLabel" type="Label" parent="CanvasLayer"]
-offset_right = 50.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 32
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 49.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer2"]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 50
 text = "LIVES: "
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -118.0
-offset_bottom = 45.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 32
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 50
 text = "SCORE: "
+horizontal_alignment = 2
 
 [node name="GameOverPanel" type="PanelContainer" parent="CanvasLayer"]
 visible = false
@@ -77,28 +186,143 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = -29.0
-offset_right = 105.0
-offset_bottom = 51.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_x6ft1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 50
 text = "Game over!"
 horizontal_alignment = 1
 
-[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+[node name="HighScoreLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 36
+text = "Score: "
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 36
+text = "Money earned: "
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "RESTART"
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_p51s7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7alf0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_260qw")
+text = "NEW GAME"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/GameOverPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_fbmvr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7alf0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_260qw")
+text = "MAIN MENU"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="JumpButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_mwmob")
+text = "JUMP"
+
+[node name="DashButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("9_1rqgg")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_mwmob")
+text = "DASH"
 
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource("9_3ihge")
 
-[connection signal="timeout" from="PlatformSpawnerMiddle/Timer" to="PlatformSpawnerMiddle" method="OnTimerTimeout"]
+[node name="DeathZone" type="Node2D" parent="."]
+script = ExtResource("10_akkqd")
+
+[node name="Area2D" type="Area2D" parent="DeathZone"]
+position = Vector2(3, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone/Area2D"]
+shape = SubResource("WorldBoundaryShape2D_8v7by")
+
+[node name="BG_Mountains" type="Parallax2D" parent="."]
+z_index = -1
+repeat_size = Vector2(1280, 0)
+script = ExtResource("12_mwmob")
+
+[node name="TextureRect" type="TextureRect" parent="BG_Mountains"]
+offset_top = -1100.0
+offset_right = 1280.0
+offset_bottom = 900.0
+texture = ExtResource("14_sw8nc")
+
+[node name="BG_Sky" type="Parallax2D" parent="."]
+z_index = -2
+repeat_size = Vector2(1280, 0)
+script = ExtResource("12_mwmob")
+_scrollingSpeedDecrease = 200.0
+
+[node name="TextureRect" type="TextureRect" parent="BG_Sky"]
+offset_top = -1100.0
+offset_right = 1280.0
+offset_bottom = 900.0
+texture = ExtResource("15_x6ft1")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_x6ft1")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="OnArea2DBodyEntered"]
+
+[editable path="Player"]

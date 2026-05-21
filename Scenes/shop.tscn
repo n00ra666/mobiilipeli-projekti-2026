@@ -1,0 +1,280 @@
+[gd_scene load_steps=13 format=3 uid="uid://bg8vlkwc0t8eb"]
+
+[ext_resource type="Script" uid="uid://bsvdeaa8ihkcu" path="res://Code/UI/Shop.cs" id="1_2shtd"]
+[ext_resource type="Texture2D" uid="uid://bue75pimx7of5" path="res://Art/jump_icon.png" id="2_k6jq0"]
+[ext_resource type="FontFile" uid="uid://c7vjh7waum3x5" path="res://Fonts/Kejter-BLwJ5.otf" id="3_io27d"]
+[ext_resource type="Texture2D" uid="uid://8ql4nondw3ho" path="res://Art/life_icon.png" id="4_3ps1r"]
+[ext_resource type="Texture2D" uid="uid://cjkvyomwnsvgk" path="res://Art/bubble_icon.png" id="5_ymrm4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6jq0"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyrku"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xp22"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ow1eo"]
+bg_color = Color(0.07284262, 0.072842635, 0.072842605, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ps1r"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymrm4"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8dlv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Shop" type="Control" node_paths=PackedStringArray("_returnButton", "_jumpUpgradeButton", "_extraLifeButton", "_bubbleButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2shtd")
+_returnButton = NodePath("PanelContainer/VBoxContainer/ReturnButton")
+_jumpUpgradeButton = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer3/BuyButton1")
+_extraLifeButton = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer3/BuyButton1")
+_bubbleButton = NodePath("PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer3/BuyButton1")
+_jumpUpgradeCost = 500
+_extraLifeCost = 1000
+_bubbleCost = 1500
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TripleJumpIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_k6jq0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TripleJumpLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 50
+text = "Triple jump"
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 36
+text = "Can jump 3 times before needing to touch the ground."
+autowrap_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BuyButton1" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_k6jq0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tyrku")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5xp22")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ow1eo")
+text = "Buy (500)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TripleJumpIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_3ps1r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TripleJumpLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 50
+text = "Extra life"
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 36
+text = "Start each new game with 3 lives."
+autowrap_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BuyButton1" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_k6jq0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tyrku")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5xp22")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ow1eo")
+text = "Buy (1000)"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="TripleJumpIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("5_ymrm4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TripleJumpLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 50
+text = "Protective bubble"
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 36
+text = "Absorbs one enemy/obstacle hit. Does not work against platform edges/falling off the map!"
+autowrap_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BuyButton1" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_k6jq0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tyrku")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5xp22")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ow1eo")
+text = "Buy (1500)"
+
+[node name="ReturnButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_io27d")
+theme_override_font_sizes/font_size = 66
+theme_override_styles/normal = SubResource("StyleBoxFlat_3ps1r")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ymrm4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s8dlv")
+text = "BACK"

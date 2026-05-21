@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://sd681ra8qvrn"
+path="res://.godot/imported/Week 2 - Ruined Lands WASTELAND.ogg-1df1cdce42a41e25efb5b6e4ba597654.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/Week 2 - Ruined Lands WASTELAND.ogg"
+dest_files=["res://.godot/imported/Week 2 - Ruined Lands WASTELAND.ogg-1df1cdce42a41e25efb5b6e4ba597654.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

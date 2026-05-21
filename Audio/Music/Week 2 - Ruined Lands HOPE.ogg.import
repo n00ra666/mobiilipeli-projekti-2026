@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://8p0w1cl7ccym"
+path="res://.godot/imported/Week 2 - Ruined Lands HOPE.ogg-579eebdfd1139a486704c0917015ba03.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/Week 2 - Ruined Lands HOPE.ogg"
+dest_files=["res://.godot/imported/Week 2 - Ruined Lands HOPE.ogg-579eebdfd1139a486704c0917015ba03.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

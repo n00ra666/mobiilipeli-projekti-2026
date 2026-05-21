@@ -1,0 +1,169 @@
+[gd_scene load_steps=7 format=3 uid="uid://y6sexfb7opg2"]
+
+[ext_resource type="Script" uid="uid://dbtlr7u6b8hsb" path="res://Code/UI/Settings.cs" id="1_i44u3"]
+[ext_resource type="FontFile" uid="uid://c7vjh7waum3x5" path="res://Fonts/Kejter-BLwJ5.otf" id="2_lhmql"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_i44u3"]
+color = Color(0.13682577, 0.13682574, 0.13682571, 1)
+thickness = 35
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i44u3"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhmql"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaqfp"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("_masterSlider", "_musicSlider", "_effectsSlider", "_returnButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i44u3")
+_masterSlider = NodePath("PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/MasterSlider")
+_musicSlider = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer/MusicSlider")
+_effectsSlider = NodePath("PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer/EffectsSlider")
+_returnButton = NodePath("PanelContainer/VBoxContainer/ReturnButton")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lhmql")
+theme_override_font_sizes/font_size = 72
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MasterLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lhmql")
+theme_override_font_sizes/font_size = 50
+text = "Master audio"
+
+[node name="MasterSlider" type="HSlider" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_i44u3")
+max_value = 1.0
+step = 0.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MusicLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lhmql")
+theme_override_font_sizes/font_size = 50
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_i44u3")
+max_value = 1.0
+step = 0.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="EffectsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lhmql")
+theme_override_font_sizes/font_size = 50
+text = "Sound effects"
+
+[node name="EffectsSlider" type="HSlider" parent="PanelContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_i44u3")
+max_value = 1.0
+step = 0.0
+
+[node name="ReturnButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_lhmql")
+theme_override_font_sizes/font_size = 66
+theme_override_styles/normal = SubResource("StyleBoxFlat_i44u3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhmql")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aaqfp")
+text = "BACK"

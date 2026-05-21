@@ -1,25 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://cakeiojca55sx"]
+[gd_scene load_steps=7 format=3 uid="uid://cakeiojca55sx"]
 
 [ext_resource type="Script" uid="uid://bsw1g3opdrcna" path="res://Code/Platforms/PlatformController.cs" id="1_0hgvv"]
-[ext_resource type="Texture2D" uid="uid://t45fst4wrkqg" path="res://icon.svg" id="1_7dhtc"]
-[ext_resource type="PackedScene" uid="uid://bbssxvn3xcsx1" path="res://Scenes/obstacle_placeholder.tscn" id="3_vokhg"]
+[ext_resource type="Texture2D" uid="uid://cw207w2ltsrq" path="res://Art/platform_short.png" id="2_12sub"]
+[ext_resource type="PackedScene" uid="uid://c2lukf3xjwpxr" path="res://Scenes/obstacle_spawner.tscn" id="3_12sub"]
+[ext_resource type="Script" uid="uid://bcibledlj5j5b" path="res://Code/Obstacles/DeathZone.cs" id="4_12sub"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hgvv"]
-size = Vector2(384, 128)
+size = Vector2(379, 128)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_x74qt"]
+a = Vector2(0, -15)
+b = Vector2(0, 15)
 
 [node name="Platform_short" type="StaticBody2D"]
 collision_layer = 2
 script = ExtResource("1_0hgvv")
-_scrollSpeed = -200.0
 _offScreenEndCoordinate = -1300.0
+Width = 384.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(3, 0.25)
-texture = ExtResource("1_7dhtc")
+position = Vector2(0, 43)
+texture = ExtResource("2_12sub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
 scale = Vector2(1, 0.25)
 shape = SubResource("RectangleShape2D_0hgvv")
 
-[node name="ObstaclePlaceholder" parent="." instance=ExtResource("3_vokhg")]
+[node name="ObstacleSpawner" parent="." node_paths=PackedStringArray("_platform") instance=ExtResource("3_12sub")]
 position = Vector2(0, -80)
+_platform = NodePath("..")
+
+[node name="DeathZone" type="Node2D" parent="."]
+position = Vector2(-191, 0)
+script = ExtResource("4_12sub")
+
+[node name="Area2D" type="Area2D" parent="DeathZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone/Area2D"]
+position = Vector2(-1, 9)
+shape = SubResource("SegmentShape2D_x74qt")
+
+[connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="OnArea2DBodyEntered"]
